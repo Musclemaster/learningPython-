@@ -1,0 +1,182 @@
+
+# 04 장 입출력을 해보자.
+
+>>> # 04-1 함수
+>>> 
+>>> # 입력-함수-출력
+>>> 
+>>> def sum(a, b):
+	return a + b
+
+>>> # 이 함수의 이름(함수명)은 sum이고 입력 인수로 2개의 값을 받으며 결과값은 2개의 입력값을 더한 값이다.
+>>> 
+>>> a = 3
+>>> b = 4
+>>> c = sum(a,b) <- # sum(3,4)의 리턴값을 c에 대입.
+>>> print(c)
+7
+
+>>> # 입력값이 없는 함수
+>>> def say():
+	return 'Hi'
+
+>>> a = say()
+>>> print(a)
+Hi
+>>> 
+>>> # 결과값이 없는 함수
+>>> def sum(a, b):
+	print("%d, %d의 합은 %d입니다." % (a,b, a+b))
+
+>>> sum(3, 4)
+3, 4의 합은 7입니다.
+>>> print(a)
+None
+
+>>> # 입력값도 결과값도 없는 함수
+>>> def say():
+	print('Hi')
+
+	
+>>> say()
+Hi
+
+>>> # 여러 개의 입력값을 받는 함수 만들기
+>>> def sum_mul(choice, *args):
+	if choice == "sum":
+		result = 0
+		for i in args:
+			result = result + i
+	elif choice == "mul":
+		result = 1
+		for i in args:
+			result = result * i
+	return result
+
+>>> result = sum_mul('sum', 1,2,3,4,5)
+>>> print(result)
+15
+>>> result = sum_mul('mul', 1,2,3,4,5)
+>>> print(result)
+120
+
+>>> # 함수의 결과값은 언제나 하나이다
+>>> def sum_amd_mul(a,b):   <- # I was supposed to write "and" not amd.
+	return a+b, a*b
+
+>>> sum_amd_mul(3,4)
+(7, 12)
+
+# return 값은 하나만! 두 개 써봤자 앞에꺼에서 실행하고 나간다.
+
+
+>>> # 입력 인수에 초깃값 미리 설정하기
+>>> def say_myself(name, old, man=True):
+	print("나의 이름은 %s입니다." % name)
+	print("나이는 %d살입니다." % old)
+	if man:
+		print("남자입니다.")
+	else:
+		print("여자입니다.")
+
+		
+>>> say_myself("박응용", 27)
+나의 이름은 박응용입니다.
+나이는 27살입니다.
+남자입니다.
+>>> say_myself("박응용", 27, True)
+나의 이름은 박응용입니다.
+나이는 27살입니다.
+남자입니다.
+
+# 함수 입력 인수에 초깃값을 설정할 때 주의할 사항
+# !!!!!!초기화시키고 싶은 입력 변수는 ex) man=TRUE 항상 뒤쪽에!!!!
+
+>>> # 함수 안에서 선언된 변수의 효력 범위
+>>> 
+>>> # vartest
+>>> 
+>>> a = 1  <- # 함수 밖의 변수 a
+>>> def vartest(a): #
+	a = a + 1   # vartest 함수 "선언"
+
+	
+>>> vartest(a)  <- # vartest 함수의 입력값으로 a를 줌
+>>> print(a)  <- # a의 값 출력
+1
+
+# vartest_error
+
+>>> def vartest(a):
+	a = a + 1
+
+	
+>>> vartest(3) <- #a 변수 어딨어? 왜 3이야?
+>>> print(a)
+Traceback (most recent call last):
+  File "<pyshell#4>", line 1, in <module>
+    print(a)
+NameError: name 'a' is not defined
+
+    # 함수 안에서 함수 밖의 변수를 변경하는 방법
+    # return 이용하기
+>>> # vartest_return
+>>> a = 1
+>>> def vartest(a):
+	a = a+1
+
+	
+>>> a = vartest(a) <- # vartest(a)의 결과값을 함수 밖의 변수 a에 대
+>>> print(a)
+None
+
+>>> # 04-2 사용자 입력과 출력
+>>> 
+>>> # 사용자 입력 -> 처리(프로그램, 함수 등)-> 출력
+>>> # 1. 사용자 입력
+>>> # input의 사용
+>>> a = input()
+Life is too short, you need python
+>>> a
+'Life is too short, you need python'
+>>> 'Life is too short, you need python'
+'Life is too short, you need python'
+>>> # input은 입력되는 모든 것을 문자열로 취급한다.
+>>> # 프로폼트, input("질문 내용")
+>>> number = input("숫자를 입력하세요: ")
+숫자를 입력하세요: 3
+>>> print(number)
+3
+>>> # print (자세히 알기)
+>>> a = 123
+>>> print(a)
+123
+>>> a = "Python"
+>>> print(a)
+Python
+>>> a = [1,2,3]
+>>> print(a)
+[1, 2, 3]
+
+>>> # 큰따옴표(")로 둘러싸인 문자열은 + 연산과 동일하다.
+>>> print("life" "is" "too short")
+lifeistoo short
+>>> print("life"+"is"+"too short")
+lifeistoo short
+# 문자열 띄어쓰기는 콤마로 한다.
+>>> print("life", "is", "too short")
+life is too short
+>>> # 한 줄에 결과값 출력하기
+>>> for i in range(10):
+	print(i, end='')
+
+	
+0123456789
+
+>>> # 04-3 파일 읽고 쓰기
+>>> # 파일 생성하기
+>>> f = open("새파일.txt", 'w')
+>>> f.close()
+>>> f = open("C:/Python/새파일.txt", 'w')
+
+life is too short
